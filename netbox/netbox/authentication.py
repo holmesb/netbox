@@ -92,6 +92,7 @@ class RemoteUserBackend(_RemoteUserBackend):
     """
     @property
     def create_unknown_user(self):
+        print(f'settings.REMOTE_AUTH_AUTO_CREATE_USER is {settings.REMOTE_AUTH_AUTO_CREATE_USER}')
         return settings.REMOTE_AUTH_AUTO_CREATE_USER
 
     def configure_user(self, request, user):
@@ -99,7 +100,9 @@ class RemoteUserBackend(_RemoteUserBackend):
 
         # Assign default groups to the user
         group_list = []
+        print(f'settings.REMOTE_AUTH_DEFAULT_GROUPS is {settings.REMOTE_AUTH_DEFAULT_GROUPS}')
         for name in settings.REMOTE_AUTH_DEFAULT_GROUPS:
+            print(f'name is {name}')
             try:
                 group_list.append(Group.objects.get(name=name))
             except Group.DoesNotExist:
